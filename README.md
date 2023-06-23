@@ -1,2 +1,2 @@
-# template-spring-boot
-This is a template for spring boot project
+# api-credibanco
+This is an api for credibanco

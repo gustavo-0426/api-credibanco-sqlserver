@@ -1,13 +1,13 @@
-package com.co.softworld;
+package com.co.softworld.credibanco;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NameApplication {
+public class CredibancoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NameApplication.class, args);
+		SpringApplication.run(CredibancoApplication.class, args);
 	}
 
 }
