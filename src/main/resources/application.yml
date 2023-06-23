@@ -1,7 +1,12 @@
 spring:
   profiles:
     active: "dev"
-
 ---
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: credibanco
 server:
-    port: 9091
+  port: 9091
