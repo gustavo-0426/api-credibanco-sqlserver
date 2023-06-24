@@ -25,7 +25,10 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<Product> findById(int productId) {
-        return new ResponseEntity<>(productRepository.findById(productId).orElse(null), OK);
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (optionalProduct.isEmpty())
+            return new ResponseEntity<>(null, NOT_FOUND);
+        return new ResponseEntity<>(optionalProduct.get(), OK);
     }
 
     @Override
