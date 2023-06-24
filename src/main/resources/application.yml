@@ -4,7 +4,7 @@ spring:
 ---
 spring:
   datasource:
-    url: jdbc:sqlserver://${DB_HOST:192.168.80.17}:${DB_PORT:1433};databaseName=${DB_DATABASE:testdb}
+    url: jdbc:sqlserver://${DB_HOST:192.168.80.17}:${DB_PORT:1433};databaseName=${DB_DATABASE:credibancodb}
     username: ${DB_USERNAME:sa}
     password: ${DB_PASSWORD:sa}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -12,5 +12,6 @@ spring:
     show-sql: true
     hibernate:
       dialect: org.hibernate.dialect.SQLServer2012Dialect
+      ddl-auto: update
 server:
   port: ${SERVER_PORT:9091}

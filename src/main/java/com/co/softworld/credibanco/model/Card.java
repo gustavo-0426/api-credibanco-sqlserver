@@ -14,8 +14,9 @@ public class Card {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private int id;
+    private int cardId;
     private String number;
-    private String name;
-    private String date;
+    private String customer;
+    private String expiryDate;
+    private int active;
 }

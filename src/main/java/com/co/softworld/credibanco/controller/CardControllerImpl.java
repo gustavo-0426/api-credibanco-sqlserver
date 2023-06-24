@@ -22,6 +22,12 @@ public class CardControllerImpl implements ICardController {
     }
 
     @Override
+    @PostMapping("/enroll")
+    public ResponseEntity<Card> activateCard(@RequestBody Card card) {
+        return cardService.activateCard(card);
+    }
+
+    @Override
     @GetMapping
     public ResponseEntity<List<Card>> findAll() {
         return cardService.findAll();

@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ICardController {
     ResponseEntity<Card> generateCard(int productId);
+    ResponseEntity<Card> activateCard(Card card);
     ResponseEntity<List<Card>> findAll();
     ResponseEntity<Card> delete (int cardId);
 }
