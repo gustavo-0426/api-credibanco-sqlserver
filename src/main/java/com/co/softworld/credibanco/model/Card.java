@@ -1,17 +1,20 @@
 package com.co.softworld.credibanco.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Document
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
 @Data
 public class Card {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = IDENTITY)
+    private int id;
     private String number;
     private String name;
     private String date;

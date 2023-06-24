@@ -3,10 +3,14 @@ spring:
     active: "dev"
 ---
 spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: credibanco
+  datasource:
+    url: jdbc:sqlserver://${DB_HOST:192.168.80.17}:${DB_PORT:1433};databaseName=${DB_DATABASE:testdb}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:sa}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2012Dialect
 server:
-  port: 9091
+  port: ${SERVER_PORT:9091}

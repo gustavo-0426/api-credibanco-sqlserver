@@ -23,7 +23,7 @@ public class ProductControllerImpl implements IProductController {
 
     @Override
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> findById(@PathVariable String productId) {
+    public ResponseEntity<Product> findById(@PathVariable int productId) {
         return productService.findById(productId);
     }
 
@@ -35,13 +35,13 @@ public class ProductControllerImpl implements IProductController {
 
     @Override
     @DeleteMapping("/{productId}")
-    public ResponseEntity<Product> delete(@PathVariable String productId) {
+    public ResponseEntity<Product> delete(@PathVariable int productId) {
         return productService.delete(productId);
     }
 
     @Override
     @PatchMapping("/{productId}")
-    public ResponseEntity<Product> update(@PathVariable String productId, @RequestBody Product product) {
+    public ResponseEntity<Product> update(@PathVariable int productId, @RequestBody Product product) {
         return productService.update(productId, product);
     }
 }

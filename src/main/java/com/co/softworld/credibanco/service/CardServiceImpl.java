@@ -27,7 +27,7 @@ public class CardServiceImpl implements ICardService {
     private IProductRepository productRepository;
 
     @Override
-    public ResponseEntity<Card> generateCard(String productId) {
+    public ResponseEntity<Card> generateCard(int productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isEmpty())
             return new ResponseEntity<>(NOT_FOUND);
@@ -40,7 +40,7 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public String generateNumber(String productId) {
+    public String generateNumber(int productId) {
         long random = (long)(random() * 10000000000L);
         return format("%s%10d", productId, random);
     }
@@ -51,7 +51,7 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
-    public ResponseEntity<Card> delete(String cardId) {
+    public ResponseEntity<Card> delete(int cardId) {
         Optional<Card> optionalCard = cardRepository.findById(cardId);
         if (optionalCard.isEmpty())
             return new ResponseEntity<>(null, NOT_FOUND);

@@ -17,7 +17,7 @@ public class CardControllerImpl implements ICardController {
 
     @Override
     @GetMapping("/{productId}/number")
-    public ResponseEntity<Card> generateCard(@PathVariable String productId) {
+    public ResponseEntity<Card> generateCard(@PathVariable int productId) {
         return cardService.generateCard(productId);
     }
 
@@ -29,7 +29,7 @@ public class CardControllerImpl implements ICardController {
 
     @Override
     @DeleteMapping("/{cardId}")
-    public ResponseEntity<Card> delete(@PathVariable String cardId) {
+    public ResponseEntity<Card> delete(@PathVariable int cardId) {
         return cardService.delete(cardId);
     }
 

@@ -24,7 +24,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<Product> findById(String productId) {
+    public ResponseEntity<Product> findById(int productId) {
         return new ResponseEntity<>(productRepository.findById(productId).orElse(null), OK);
     }
 
@@ -34,7 +34,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<Product> delete(String productId) {
+    public ResponseEntity<Product> delete(int productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isEmpty())
             return new ResponseEntity<>(null, NOT_FOUND);
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<Product> update(String productId, Product product) {
+    public ResponseEntity<Product> update(int productId, Product product) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isEmpty())
             return new ResponseEntity<>(null, NOT_FOUND);

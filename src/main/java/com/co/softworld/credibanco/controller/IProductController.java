@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IProductController {
     ResponseEntity<Product> save (Product product);
-    ResponseEntity<Product> findById (String productId);
+    ResponseEntity<Product> findById (int productId);
     ResponseEntity<List<Product>> findAll();
-    ResponseEntity<Product> delete (String productId);
-    ResponseEntity<Product> update (String productId, Product product);
+    ResponseEntity<Product> delete (int productId);
+    ResponseEntity<Product> update (int productId, Product product);
 }

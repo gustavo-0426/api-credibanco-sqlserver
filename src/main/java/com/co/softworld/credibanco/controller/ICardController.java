@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface ICardController {
-    ResponseEntity<Card> generateCard(String productId);
+    ResponseEntity<Card> generateCard(int productId);
     ResponseEntity<List<Card>> findAll();
-    ResponseEntity<Card> delete (String cardId);
+    ResponseEntity<Card> delete (int cardId);
 }
