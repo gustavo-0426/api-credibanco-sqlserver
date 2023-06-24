@@ -8,6 +8,10 @@ import java.util.List;
 public interface ICardController {
     ResponseEntity<Card> generateCard(int productId);
     ResponseEntity<Card> activateCard(Card card);
+    ResponseEntity<Card> block(int cardId);
+    ResponseEntity<Card> addBalance(Card card);
+    ResponseEntity<Double> getBalance(int cardId);
+
     ResponseEntity<List<Card>> findAll();
-    ResponseEntity<Card> delete (int cardId);
+
 }

@@ -28,15 +28,27 @@ public class CardControllerImpl implements ICardController {
     }
 
     @Override
-    @GetMapping
-    public ResponseEntity<List<Card>> findAll() {
-        return cardService.findAll();
+    @DeleteMapping("/{cardId}")
+    public ResponseEntity<Card> block(@PathVariable int cardId) {
+        return cardService.block(cardId);
     }
 
     @Override
-    @DeleteMapping("/{cardId}")
-    public ResponseEntity<Card> delete(@PathVariable int cardId) {
-        return cardService.delete(cardId);
+    @PostMapping("/balance")
+    public ResponseEntity<Card> addBalance(@RequestBody Card card) {
+        return cardService.addBalance(card);
+    }
+
+    @Override
+    @GetMapping("/balance/{cardId}")
+    public ResponseEntity<Double> getBalance(@PathVariable int cardId) {
+        return cardService.getBalance(cardId);
+    }
+
+    @Override
+    @GetMapping
+    public ResponseEntity<List<Card>> findAll() {
+        return cardService.findAll();
     }
 
 }

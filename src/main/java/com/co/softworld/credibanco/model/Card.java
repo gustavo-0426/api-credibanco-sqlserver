@@ -18,5 +18,6 @@ public class Card {
     private String number;
     private String customer;
     private String expiryDate;
+    private double balance;
     private int active;
 }

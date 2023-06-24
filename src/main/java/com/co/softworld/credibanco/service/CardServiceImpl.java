@@ -56,18 +56,39 @@ public class CardServiceImpl implements ICardService {
     }
 
     @Override
+    public ResponseEntity<Card> block(int cardId) {
+        Optional<Card> optionalCard = cardRepository.findById(cardId);
+        if (optionalCard.isEmpty())
+            return new ResponseEntity<>(null, NOT_FOUND);
+        Card cardBlock = optionalCard.get();
+        cardBlock.setActive(0);
+        return new ResponseEntity<>(cardRepository.save(cardBlock), OK);
+    }
+
+    @Override
+    public ResponseEntity<Card> addBalance(Card card) {
+        Optional<Card> optionalCard = cardRepository.findById(card.getCardId());
+        if (optionalCard.isEmpty())
+            return new ResponseEntity<>(null, NOT_FOUND);
+        Card cardBlock = optionalCard.get();
+        cardBlock.setBalance(card.getBalance());
+        return new ResponseEntity<>(cardRepository.save(cardBlock), OK);
+    }
+
+    @Override
+    public ResponseEntity<Double> getBalance(int cardId) {
+        Optional<Card> optionalCard = cardRepository.findById(cardId);
+        if (optionalCard.isEmpty())
+            return new ResponseEntity<>(null, NOT_FOUND);
+        return new ResponseEntity<>(optionalCard.get().getBalance(), OK);
+    }
+
+    @Override
     public ResponseEntity<List<Card>> findAll() {
         return new ResponseEntity<>(cardRepository.findAll(), OK);
     }
 
-    @Override
-    public ResponseEntity<Card> delete(int cardId) {
-        Optional<Card> optionalCard = cardRepository.findById(cardId);
-        if (optionalCard.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
-        cardRepository.delete(optionalCard.get());
-        return new ResponseEntity<>(optionalCard.get(), OK);
-    }
+
 
 
 }

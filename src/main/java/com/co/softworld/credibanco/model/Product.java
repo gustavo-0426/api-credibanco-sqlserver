@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -16,7 +15,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int id;
-    @NotNull
     private String name;
     private String customer;
 }
