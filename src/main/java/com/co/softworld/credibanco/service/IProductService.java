@@ -10,5 +10,4 @@ public interface IProductService {
     ResponseEntity<Product> findById(int productId);
     ResponseEntity<List<Product>> findAll();
     ResponseEntity<Product> delete(int productId);
-    ResponseEntity<Product> update(int productId, Product product);
 }

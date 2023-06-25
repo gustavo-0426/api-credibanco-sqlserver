@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/card")
@@ -23,7 +25,7 @@ public class CardControllerImpl implements ICardController {
 
     @Override
     @PostMapping("/enroll")
-    public ResponseEntity<Card> activateCard(@RequestBody Card card) {
+    public ResponseEntity<Card> activateCard(@Valid @RequestBody Card card) {
         return cardService.activateCard(card);
     }
 
@@ -35,13 +37,13 @@ public class CardControllerImpl implements ICardController {
 
     @Override
     @PostMapping("/balance")
-    public ResponseEntity<Card> addBalance(@RequestBody Card card) {
+    public ResponseEntity<Card> addBalance(@Valid @RequestBody Card card) {
         return cardService.addBalance(card);
     }
 
     @Override
     @GetMapping("/balance/{cardId}")
-    public ResponseEntity<Double> getBalance(@PathVariable int cardId) {
+    public ResponseEntity<Map<String, Double>> getBalance(@PathVariable int cardId) {
         return cardService.getBalance(cardId);
     }
 

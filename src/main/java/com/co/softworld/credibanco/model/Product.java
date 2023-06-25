@@ -15,7 +15,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = IDENTITY, generator = "generate_sequence")
-    @SequenceGenerator(name = "generate_sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 99999)
+    @SequenceGenerator(name = "generate_sequence", sequenceName = "sequence", allocationSize = 1, initialValue = 100000)
     private int productId;
 
     @NotNull(message = "The name field must not have a null value")

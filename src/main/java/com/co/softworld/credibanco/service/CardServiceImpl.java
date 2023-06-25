@@ -1,5 +1,6 @@
 package com.co.softworld.credibanco.service;
 
+import com.co.softworld.credibanco.exception.InvalidCardException;
 import com.co.softworld.credibanco.model.Card;
 import com.co.softworld.credibanco.model.Product;
 import com.co.softworld.credibanco.repository.ICardRepository;
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import static com.co.softworld.credibanco.util.IUtility.FORMAT_DATE;
+import static com.co.softworld.credibanco.util.IUtility.*;
 import static java.lang.Math.random;
 import static java.lang.String.format;
 import static java.time.LocalDate.now;
@@ -30,11 +33,11 @@ public class CardServiceImpl implements ICardService {
     public ResponseEntity<Card> generateCard(int productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (optionalProduct.isEmpty())
-            return new ResponseEntity<>(NOT_FOUND);
+            throw new InvalidCardException(PRODUCT_NOT_FOUND);
         Product product = optionalProduct.get();
         Card card = new Card();
         card.setNumber(generateNumber(productId));
-        card.setCustomer(product.getCustomer());
+        card.setProduct(product);
         card.setExpiryDate(now().plusYears(3).format(FORMAT_DATE));
         return new ResponseEntity<>(cardRepository.save(card), OK);
     }
@@ -49,7 +52,7 @@ public class CardServiceImpl implements ICardService {
     public ResponseEntity<Card> activateCard(Card card) {
         Optional<Card> optionalCard = cardRepository.findById(card.getCardId());
         if (optionalCard.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
+            throw new InvalidCardException(CARD_NOT_FOUND);
         Card cardActivate = optionalCard.get();
         cardActivate.setActive(1);
         return new ResponseEntity<>(cardRepository.save(cardActivate), NOT_FOUND);
@@ -59,8 +62,10 @@ public class CardServiceImpl implements ICardService {
     public ResponseEntity<Card> block(int cardId) {
         Optional<Card> optionalCard = cardRepository.findById(cardId);
         if (optionalCard.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
+            throw new InvalidCardException(CARD_NOT_FOUND);
         Card cardBlock = optionalCard.get();
+        if (cardBlock.getActive() == 0)
+            throw new InvalidCardException(CARD_IS_INACTIVE);
         cardBlock.setActive(0);
         return new ResponseEntity<>(cardRepository.save(cardBlock), OK);
     }
@@ -69,26 +74,25 @@ public class CardServiceImpl implements ICardService {
     public ResponseEntity<Card> addBalance(Card card) {
         Optional<Card> optionalCard = cardRepository.findById(card.getCardId());
         if (optionalCard.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
-        Card cardBlock = optionalCard.get();
-        cardBlock.setBalance(card.getBalance());
-        return new ResponseEntity<>(cardRepository.save(cardBlock), OK);
+            throw new InvalidCardException(CARD_NOT_FOUND);
+        Card cardBalance = optionalCard.get();
+        cardBalance.setBalance(cardBalance.getBalance() + card.getBalance());
+        return new ResponseEntity<>(cardRepository.save(cardBalance), OK);
     }
 
     @Override
-    public ResponseEntity<Double> getBalance(int cardId) {
+    public ResponseEntity<Map<String, Double>> getBalance(int cardId) {
         Optional<Card> optionalCard = cardRepository.findById(cardId);
         if (optionalCard.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
-        return new ResponseEntity<>(optionalCard.get().getBalance(), OK);
+            throw new InvalidCardException(CARD_NOT_FOUND);
+        Map<String, Double> balance = new HashMap<>();
+        balance.put("balance", optionalCard.get().getBalance());
+        return new ResponseEntity<>(balance, OK);
     }
 
     @Override
     public ResponseEntity<List<Card>> findAll() {
         return new ResponseEntity<>(cardRepository.findAll(), OK);
     }
-
-
-
 
 }

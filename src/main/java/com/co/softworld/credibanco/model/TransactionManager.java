@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,8 @@ public class TransactionManager {
     @GeneratedValue(strategy = IDENTITY)
     private int transactionId;
     private LocalDateTime date;
-    private int cardId;
+    @ManyToOne()
+    private Card card;
     private double price;
     private String status;
 }

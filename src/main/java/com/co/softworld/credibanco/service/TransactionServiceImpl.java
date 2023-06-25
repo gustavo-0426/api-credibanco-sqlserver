@@ -1,6 +1,8 @@
 package com.co.softworld.credibanco.service;
 
+import com.co.softworld.credibanco.exception.InvalidTransactionException;
 import com.co.softworld.credibanco.model.Card;
+import com.co.softworld.credibanco.model.MapperTransaction;
 import com.co.softworld.credibanco.model.TransactionManager;
 import com.co.softworld.credibanco.repository.ICardRepository;
 import com.co.softworld.credibanco.repository.ITransactionRepository;
@@ -12,10 +14,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.co.softworld.credibanco.util.IUtility.FORMAT_DATE;
-import static java.lang.Double.sum;
+import static com.co.softworld.credibanco.util.IUtility.*;
+import static java.lang.String.format;
 import static java.time.LocalDate.now;
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 public class TransactionServiceImpl implements ITransactionService {
@@ -26,21 +29,27 @@ public class TransactionServiceImpl implements ITransactionService {
     private ICardRepository cardRepository;
 
     @Override
-    public ResponseEntity<TransactionManager> purchase(TransactionManager transaction) {
-        Optional<Card> optionalCard = cardRepository.findById(transaction.getCardId());
-        if (optionalCard.isEmpty() || optionalCard.get().getActive() != 1)
-            return new ResponseEntity<>(null, NOT_FOUND);
-        Card card = optionalCard.get();
-        double price = transaction.getPrice();
+    public ResponseEntity<TransactionManager> purchase(MapperTransaction mapper) {
+        Card card = cardRepository.findById(mapper.getCardId()).orElse(null);
+        double price = mapper.getPrice();
         String date = now().format(FORMAT_DATE);
+        if (card == null)
+            throw new InvalidTransactionException(format("%s %s", DECLINED_TRANSACTION, CARD_NOT_FOUND));
+        if (card.getActive() != 1)
+            throw new InvalidTransactionException(TRANSACTION_INVALID_LOCKED_CARD);
         if (date.compareTo(card.getExpiryDate()) > 0)
-            return new ResponseEntity<>(null, BAD_REQUEST);
-        if (price == 0 || card.getBalance() == 0 || card.getBalance() < price)
-            return new ResponseEntity<>(null, BAD_REQUEST);
+            throw new InvalidTransactionException(TRANSACTION_INVALID_EXPIRY_CARD);
+        if (price == 0 || card.getBalance() == 0)
+            throw new InvalidTransactionException(TRANSACTION_INVALID_BALANCE);
+        if (card.getBalance() < price)
+            throw new InvalidTransactionException(TRANSACTION_INVALID_INSUFFICIENT_BALANCE);
         card.setBalance(card.getBalance() - price);
         cardRepository.save(card);
+        TransactionManager transaction = new TransactionManager();
         transaction.setDate(LocalDateTime.now());
-        transaction.setStatus("Active");
+        transaction.setCard(card);
+        transaction.setPrice(price);
+        transaction.setStatus(ACTIVE);
         return new ResponseEntity<>(transactionRepository.save(transaction), OK);
     }
 
@@ -48,23 +57,21 @@ public class TransactionServiceImpl implements ITransactionService {
     public ResponseEntity<TransactionManager> getPurchase(int transactionId) {
         Optional<TransactionManager> optionalTransaction = transactionRepository.findById(transactionId);
         if (optionalTransaction.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
+            throw new InvalidTransactionException(TRANSACTION_NOT_FOUND);
         return new ResponseEntity<>(optionalTransaction.get(), OK);
     }
 
     @Override
-    public ResponseEntity<TransactionManager> annulation(TransactionManager transaction) {
-        Optional<TransactionManager> optionalTransaction = transactionRepository.findById(transaction.getTransactionId());
+    public ResponseEntity<TransactionManager> annulation(MapperTransaction mapper) {
+        Optional<TransactionManager> optionalTransaction = transactionRepository.findById(mapper.getTransactionId());
         if (optionalTransaction.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
+            throw new InvalidTransactionException(TRANSACTION_NOT_FOUND);
         TransactionManager transactionAnnulation = optionalTransaction.get();
-        Optional<Card> optionalCard = cardRepository.findById(transactionAnnulation.getCardId());
-        if (optionalCard.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
-        Card card = optionalCard.get();
-        card.setBalance(sum(card.getBalance(), transactionAnnulation.getPrice()));
+        Card card = transactionAnnulation.getCard();
+        card.setBalance(card.getBalance() + transactionAnnulation.getPrice());
         cardRepository.save(card);
-        transactionAnnulation.setStatus("Annulled");
+        transactionAnnulation.setCard(card);
+        transactionAnnulation.setStatus(ANNULLED);
         return new ResponseEntity<>(transactionRepository.save(transactionAnnulation), OK);
     }
 
@@ -77,7 +84,7 @@ public class TransactionServiceImpl implements ITransactionService {
     public ResponseEntity<TransactionManager> delete(int transactionId) {
         Optional<TransactionManager> optionalTransaction = transactionRepository.findById(transactionId);
         if (optionalTransaction.isEmpty())
-            return new ResponseEntity<>(null, NOT_FOUND);
+            throw new InvalidTransactionException(TRANSACTION_NOT_FOUND);
         transactionRepository.delete(optionalTransaction.get());
         return new ResponseEntity<>(optionalTransaction.get(), OK);
     }

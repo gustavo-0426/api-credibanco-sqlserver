@@ -40,9 +40,4 @@ public class ProductControllerImpl implements IProductController {
         return productService.delete(productId);
     }
 
-    @Override
-    @PatchMapping("/{productId}")
-    public ResponseEntity<Product> update(@PathVariable int productId, @RequestBody Product product) {
-        return productService.update(productId, product);
-    }
 }
