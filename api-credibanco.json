@@ -1,0 +1,365 @@
+{
+	"info": {
+		"_postman_id": "18fdbb6f-3db3-43b1-970d-65ded090e59e",
+		"name": "api-credibanco",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "product - save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Produc Name\",\r\n    \"customer\": \"Gustavo Castro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9091/product",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product - id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/product/100056",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"product",
+								"100056"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product - all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/product",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product - delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/product/100056",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"product",
+								"100056"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "card - save",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/card/100057/number",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"card",
+								"100057",
+								"number"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "card - all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/card",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "card - enroll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardId\" : \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9091/card/enroll",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"card",
+								"enroll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "card - add balance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardId\" : \"2\",\r\n    \"balance\": \"2000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9091/card/balance",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"card",
+								"balance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "card - get balance",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardId\" : \"1\",\r\n    \"balance\": \"1000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9091/card/balance/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"card",
+								"balance",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "card - block",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/card/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "transaction - add purchase",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardId\": \"1\",\r\n    \"price\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9091/transaction/purchase",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"transaction",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction - get purchase",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/transaction/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"transaction",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction - all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/transaction/",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"transaction",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction - delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:9091/transaction/1",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"transaction",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction - annulation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cardId\": \"5\",\r\n    \"transactionId\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:9091/transaction/anulation",
+							"host": [
+								"localhost"
+							],
+							"port": "9091",
+							"path": [
+								"transaction",
+								"anulation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
