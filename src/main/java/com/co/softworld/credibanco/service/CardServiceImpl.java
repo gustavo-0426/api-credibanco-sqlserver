@@ -8,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Optional;
 
-import static com.co.softworld.credibanco.util.IUtility.MM_YYYY;
+import static com.co.softworld.credibanco.util.IUtility.FORMAT_DATE;
 import static java.lang.Math.random;
 import static java.lang.String.format;
 import static java.time.LocalDate.now;
@@ -39,7 +35,7 @@ public class CardServiceImpl implements ICardService {
         Card card = new Card();
         card.setNumber(generateNumber(productId));
         card.setCustomer(product.getCustomer());
-        card.setExpiryDate(now().plusYears(3).format(MM_YYYY));
+        card.setExpiryDate(now().plusYears(3).format(FORMAT_DATE));
         return new ResponseEntity<>(cardRepository.save(card), OK);
     }
 

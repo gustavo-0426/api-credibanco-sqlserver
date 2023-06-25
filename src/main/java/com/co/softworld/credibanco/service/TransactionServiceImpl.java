@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.co.softworld.credibanco.util.IUtility.MM_YYYY;
+import static com.co.softworld.credibanco.util.IUtility.FORMAT_DATE;
 import static java.lang.Double.sum;
 import static java.time.LocalDate.now;
 import static org.springframework.http.HttpStatus.*;
@@ -32,7 +32,7 @@ public class TransactionServiceImpl implements ITransactionService {
             return new ResponseEntity<>(null, NOT_FOUND);
         Card card = optionalCard.get();
         double price = transaction.getPrice();
-        String date = now().format(MM_YYYY);
+        String date = now().format(FORMAT_DATE);
         if (date.compareTo(card.getExpiryDate()) > 0)
             return new ResponseEntity<>(null, BAD_REQUEST);
         if (price == 0 || card.getBalance() == 0 || card.getBalance() < price)
