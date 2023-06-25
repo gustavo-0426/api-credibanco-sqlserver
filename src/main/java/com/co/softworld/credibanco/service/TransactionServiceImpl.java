@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static com.co.softworld.credibanco.util.IUtility.MM_YYYY;
+import static java.lang.Double.sum;
 import static java.time.LocalDate.now;
 import static org.springframework.http.HttpStatus.*;
 
@@ -40,6 +40,7 @@ public class TransactionServiceImpl implements ITransactionService {
         card.setBalance(card.getBalance() - price);
         cardRepository.save(card);
         transaction.setDate(LocalDateTime.now());
+        transaction.setStatus("Active");
         return new ResponseEntity<>(transactionRepository.save(transaction), OK);
     }
 
@@ -49,6 +50,22 @@ public class TransactionServiceImpl implements ITransactionService {
         if (optionalTransaction.isEmpty())
             return new ResponseEntity<>(null, NOT_FOUND);
         return new ResponseEntity<>(optionalTransaction.get(), OK);
+    }
+
+    @Override
+    public ResponseEntity<TransactionManager> annulation(TransactionManager transaction) {
+        Optional<TransactionManager> optionalTransaction = transactionRepository.findById(transaction.getTransactionId());
+        if (optionalTransaction.isEmpty())
+            return new ResponseEntity<>(null, NOT_FOUND);
+        TransactionManager transactionAnnulation = optionalTransaction.get();
+        Optional<Card> optionalCard = cardRepository.findById(transactionAnnulation.getCardId());
+        if (optionalCard.isEmpty())
+            return new ResponseEntity<>(null, NOT_FOUND);
+        Card card = optionalCard.get();
+        card.setBalance(sum(card.getBalance(), transactionAnnulation.getPrice()));
+        cardRepository.save(card);
+        transactionAnnulation.setStatus("Annulled");
+        return new ResponseEntity<>(transactionRepository.save(transactionAnnulation), OK);
     }
 
     @Override

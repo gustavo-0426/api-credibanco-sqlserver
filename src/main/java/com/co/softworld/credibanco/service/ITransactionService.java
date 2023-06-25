@@ -8,6 +8,7 @@ import java.util.List;
 public interface ITransactionService {
     ResponseEntity<TransactionManager> purchase(TransactionManager transaction);
     ResponseEntity<TransactionManager> getPurchase(int transactionId);
+    ResponseEntity<TransactionManager> annulation(TransactionManager transaction);
     ResponseEntity<List<TransactionManager>> findAll();
     ResponseEntity<TransactionManager> delete(int transactionId);
 }

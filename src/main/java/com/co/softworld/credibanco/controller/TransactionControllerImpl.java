@@ -28,6 +28,12 @@ public class TransactionControllerImpl implements ITransactionController {
     }
 
     @Override
+    @PostMapping("/anulation")
+    public ResponseEntity<TransactionManager> annulation(@RequestBody TransactionManager transaction) {
+        return transactionService.annulation(transaction);
+    }
+
+    @Override
     @GetMapping
     public ResponseEntity<List<TransactionManager>> findAll() {
         return transactionService.findAll();

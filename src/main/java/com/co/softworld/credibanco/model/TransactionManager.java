@@ -10,14 +10,15 @@ import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Entity
+@Entity(name = "transaction_mg")
 @Data
 public class TransactionManager {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private int id;
+    private int transactionId;
     private LocalDateTime date;
     private int cardId;
     private double price;
+    private String status;
 }

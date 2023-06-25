@@ -2,6 +2,7 @@ package com.co.softworld.credibanco.model;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,9 +13,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 public class Product {
 
-    @Id
+    @Id()
     @GeneratedValue(strategy = IDENTITY)
-    private int id;
+    private int productId;
     private String name;
     private String customer;
 }
