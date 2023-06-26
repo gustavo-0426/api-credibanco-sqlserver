@@ -2,7 +2,7 @@ package com.co.softworld.credibanco.service;
 
 import com.co.softworld.credibanco.exception.InvalidTransactionException;
 import com.co.softworld.credibanco.model.Card;
-import com.co.softworld.credibanco.model.MapperTransaction;
+import com.co.softworld.credibanco.model.TransactionMapper;
 import com.co.softworld.credibanco.model.TransactionManager;
 import com.co.softworld.credibanco.repository.ICardRepository;
 import com.co.softworld.credibanco.repository.ITransactionRepository;
@@ -30,7 +30,7 @@ public class TransactionServiceImpl implements ITransactionService {
     private ICardRepository cardRepository;
 
     @Override
-    public ResponseEntity<TransactionManager> purchase(MapperTransaction mapper) {
+    public ResponseEntity<TransactionManager> purchase(TransactionMapper mapper) {
         Card card = cardRepository.findById(mapper.getCardId()).orElse(null);
         double price = mapper.getPrice();
         String date = now().format(FORMAT_DATE);
@@ -63,7 +63,7 @@ public class TransactionServiceImpl implements ITransactionService {
     }
 
     @Override
-    public ResponseEntity<TransactionManager> annulation(MapperTransaction mapper) {
+    public ResponseEntity<TransactionManager> annulation(TransactionMapper mapper) {
         Optional<TransactionManager> optionalTransaction = transactionRepository.findById(mapper.getTransactionId());
         if (optionalTransaction.isEmpty())
             throw new InvalidTransactionException(TRANSACTION_NOT_FOUND);

@@ -18,7 +18,6 @@ import static com.co.softworld.credibanco.util.IUtility.*;
 import static java.lang.Math.random;
 import static java.lang.String.format;
 import static java.time.LocalDate.now;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
 
 @Service
@@ -57,7 +56,7 @@ public class CardServiceImpl implements ICardService {
         if (cardActivate.getActive() == 1)
             throw new InvalidCardException(CARD_IS_ACTIVE);
         cardActivate.setActive(1);
-        return new ResponseEntity<>(cardRepository.save(cardActivate), NOT_FOUND);
+        return new ResponseEntity<>(cardRepository.save(cardActivate), OK);
     }
 
     @Override

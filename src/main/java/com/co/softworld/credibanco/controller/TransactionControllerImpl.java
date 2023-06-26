@@ -1,6 +1,6 @@
 package com.co.softworld.credibanco.controller;
 
-import com.co.softworld.credibanco.model.MapperTransaction;
+import com.co.softworld.credibanco.model.TransactionMapper;
 import com.co.softworld.credibanco.model.TransactionManager;
 import com.co.softworld.credibanco.service.ITransactionService;
 import io.swagger.annotations.Api;
@@ -24,7 +24,7 @@ public class TransactionControllerImpl implements ITransactionController {
     @ApiOperation(value = "Realiza una compra. Recibe en el cuerpo del mensaje el id de la tarjeta y el precio de la " +
             "compra, valida que la tarjeta exista, que se encuentre activa, que la fecha de expiración esté vigente, " +
             "que el precio de la compra sea mayor a 0 y tenga el saldo suficiente para procesar la transacción.")
-    public ResponseEntity<TransactionManager> purchase(@RequestBody MapperTransaction mapper) {
+    public ResponseEntity<TransactionManager> purchase(@RequestBody TransactionMapper mapper) {
         return transactionService.purchase(mapper);
     }
 
@@ -41,7 +41,7 @@ public class TransactionControllerImpl implements ITransactionController {
     @ApiOperation(value = "Anula una transacción. Recibe en el cuerpo del mensaje el id de la transacción, valida que " +
             "la transacción exista, que la fecha sea menor a 24 horas y procesa la anulación restando el precio de la " +
             "transacción a la tarjeta.")
-    public ResponseEntity<TransactionManager> annulation(@RequestBody MapperTransaction mapper) {
+    public ResponseEntity<TransactionManager> annulation(@RequestBody TransactionMapper mapper) {
         return transactionService.annulation(mapper);
     }
 

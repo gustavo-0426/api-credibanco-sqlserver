@@ -3,7 +3,7 @@ package com.co.softworld.credibanco.model;
 import lombok.Data;
 
 @Data
-public class MapperTransaction {
+public class TransactionMapper {
 
     private int cardId;
     private int transactionId;
