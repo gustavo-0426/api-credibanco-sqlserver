@@ -54,6 +54,8 @@ public class CardServiceImpl implements ICardService {
         if (optionalCard.isEmpty())
             throw new InvalidCardException(CARD_NOT_FOUND);
         Card cardActivate = optionalCard.get();
+        if (cardActivate.getActive() == 1)
+            throw new InvalidCardException(CARD_IS_ACTIVE);
         cardActivate.setActive(1);
         return new ResponseEntity<>(cardRepository.save(cardActivate), NOT_FOUND);
     }
@@ -75,6 +77,8 @@ public class CardServiceImpl implements ICardService {
         Optional<Card> optionalCard = cardRepository.findById(card.getCardId());
         if (optionalCard.isEmpty())
             throw new InvalidCardException(CARD_NOT_FOUND);
+        if (card.getBalance() <= 0)
+            throw new InvalidCardException(CARD_INVALID_BALANCE);
         Card cardBalance = optionalCard.get();
         cardBalance.setBalance(cardBalance.getBalance() + card.getBalance());
         return new ResponseEntity<>(cardRepository.save(cardBalance), OK);

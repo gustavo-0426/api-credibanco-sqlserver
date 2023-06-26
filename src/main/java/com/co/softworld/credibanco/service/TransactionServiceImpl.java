@@ -11,14 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 import static com.co.softworld.credibanco.util.IUtility.*;
 import static java.lang.String.format;
+import static java.time.Duration.between;
 import static java.time.LocalDate.now;
 import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 public class TransactionServiceImpl implements ITransactionService {
@@ -39,14 +40,14 @@ public class TransactionServiceImpl implements ITransactionService {
             throw new InvalidTransactionException(TRANSACTION_INVALID_LOCKED_CARD);
         if (date.compareTo(card.getExpiryDate()) > 0)
             throw new InvalidTransactionException(TRANSACTION_INVALID_EXPIRY_CARD);
-        if (price == 0 || card.getBalance() == 0)
+        if (price <= 0 || card.getBalance() == 0)
             throw new InvalidTransactionException(TRANSACTION_INVALID_BALANCE);
         if (card.getBalance() < price)
             throw new InvalidTransactionException(TRANSACTION_INVALID_INSUFFICIENT_BALANCE);
         card.setBalance(card.getBalance() - price);
         cardRepository.save(card);
         TransactionManager transaction = new TransactionManager();
-        transaction.setDate(LocalDateTime.now());
+        transaction.setDate(LocalDateTime.now().format(FORMAT_DATETIME));
         transaction.setCard(card);
         transaction.setPrice(price);
         transaction.setStatus(ACTIVE);
@@ -67,6 +68,10 @@ public class TransactionServiceImpl implements ITransactionService {
         if (optionalTransaction.isEmpty())
             throw new InvalidTransactionException(TRANSACTION_NOT_FOUND);
         TransactionManager transactionAnnulation = optionalTransaction.get();
+        LocalTime timeTransaction = LocalDateTime.parse(transactionAnnulation.getDate(), FORMAT_DATETIME).toLocalTime();
+        LocalTime timeNow = LocalTime.now();
+        if (between(timeTransaction, timeNow).toSeconds() > 1440)
+            throw new InvalidTransactionException(ANNULLED_INVALID);
         Card card = transactionAnnulation.getCard();
         card.setBalance(card.getBalance() + transactionAnnulation.getPrice());
         cardRepository.save(card);
@@ -78,14 +83,5 @@ public class TransactionServiceImpl implements ITransactionService {
     @Override
     public ResponseEntity<List<TransactionManager>> findAll() {
         return new ResponseEntity<>(transactionRepository.findAll(), OK);
-    }
-
-    @Override
-    public ResponseEntity<TransactionManager> delete(int transactionId) {
-        Optional<TransactionManager> optionalTransaction = transactionRepository.findById(transactionId);
-        if (optionalTransaction.isEmpty())
-            throw new InvalidTransactionException(TRANSACTION_NOT_FOUND);
-        transactionRepository.delete(optionalTransaction.get());
-        return new ResponseEntity<>(optionalTransaction.get(), OK);
     }
 }

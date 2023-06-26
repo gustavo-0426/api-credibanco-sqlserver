@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import java.time.LocalDateTime;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "transaction_mg")
@@ -18,7 +16,7 @@ public class TransactionManager {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private int transactionId;
-    private LocalDateTime date;
+    private String date;
     @ManyToOne()
     private Card card;
     private double price;

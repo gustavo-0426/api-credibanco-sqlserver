@@ -11,5 +11,4 @@ public interface ITransactionController {
     ResponseEntity<TransactionManager> getPurchase(int transactionId);
     ResponseEntity<TransactionManager> annulation(MapperTransaction mapper);
     ResponseEntity<List<TransactionManager>> findAll();
-    ResponseEntity<TransactionManager> delete(int transactionId);
 }
