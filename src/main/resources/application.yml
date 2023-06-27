@@ -14,7 +14,6 @@ spring:
       dialect: org.hibernate.dialect.SQLServer2012Dialect
       ddl-auto: update
 server:
-  address: 0.0.0.0
   port: ${SERVER_PORT:9091}
 
 # swagger = http://localhost:9091/swagger-ui/index.html

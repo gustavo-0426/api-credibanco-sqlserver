@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2a949fca-d79c-41f8-88c3-6d95060b069a",
+		"_postman_id": "9166912b-d592-4a7f-95ff-fe09a70317ca",
 		"name": "api-credibanco",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -23,9 +23,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/product",
+							"raw": "44.210.118.87:9091/product",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -41,9 +44,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/product/100000",
+							"raw": "44.210.118.87:9091/product/100000",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -60,9 +66,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/product",
+							"raw": "44.210.118.87:9091/product",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -87,9 +96,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/product/100000",
+							"raw": "44.210.118.87:9091/product/100000",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -111,9 +123,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/card/100000/number",
+							"raw": "44.210.118.87:9091/card/100000/number",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -140,9 +155,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/card/enroll",
+							"raw": "44.210.118.87:9091/card/enroll",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -159,9 +177,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/card/1",
+							"raw": "44.210.118.87:9091/card/1",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -187,9 +208,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/card/balance",
+							"raw": "44.210.118.87:9091/card/balance",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -218,9 +242,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/card/balance/1",
+							"raw": "44.210.118.87:9091/card/balance/1",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -238,9 +265,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/card",
+							"raw": "44.210.118.87:9091/card",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -270,9 +300,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/transaction/purchase",
+							"raw": "44.210.118.87:9091/transaction/purchase",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -289,9 +322,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/transaction/1",
+							"raw": "44.210.118.87:9091/transaction/1",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -317,9 +353,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:9091/transaction/anulation",
+							"raw": "44.210.118.87:9091/transaction/anulation",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
@@ -336,9 +375,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9091/transaction/",
+							"raw": "44.210.118.87:9091/transaction/",
 							"host": [
-								"localhost"
+								"44",
+								"210",
+								"118",
+								"87"
 							],
 							"port": "9091",
 							"path": [
