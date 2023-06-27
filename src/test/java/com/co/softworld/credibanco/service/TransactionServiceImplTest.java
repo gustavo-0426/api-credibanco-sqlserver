@@ -58,7 +58,7 @@ class TransactionServiceImplTest {
         transactionMapperSpy.setTransactionId(id);
         transactionMapperSpy.setPrice(200);
 
-        when(cardRepositoryMock.findById(id)).thenReturn(Optional.of(cardSpy));
+        when(cardRepositoryMock.findByCardIdActive(id)).thenReturn(Optional.of(cardSpy));
         when(transactionRepositoryMock.findById(id)).thenReturn(Optional.of(transactionSpy));
 
     }

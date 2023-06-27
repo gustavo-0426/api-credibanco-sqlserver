@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import static com.co.softworld.credibanco.util.IUtility.PRODUCT_NOT_FOUND;
 import static org.springframework.http.HttpStatus.OK;
@@ -26,10 +25,9 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<Product> findById(int productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if (optionalProduct.isEmpty())
-            throw new InvalidProductException(PRODUCT_NOT_FOUND);
-        return new ResponseEntity<>(optionalProduct.get(), OK);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new InvalidProductException(PRODUCT_NOT_FOUND));
+        return new ResponseEntity<>(product, OK);
     }
 
     @Override
@@ -39,10 +37,10 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<Product> delete(int productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if (optionalProduct.isEmpty())
-            throw new InvalidProductException(PRODUCT_NOT_FOUND);
-        productRepository.delete(optionalProduct.get());
-        return new ResponseEntity<>(optionalProduct.get(), OK);
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new InvalidProductException(PRODUCT_NOT_FOUND));
+        productRepository.delete(product);
+        return new ResponseEntity<>(product, OK);
     }
+
 }

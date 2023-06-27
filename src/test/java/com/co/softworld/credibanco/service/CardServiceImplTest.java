@@ -29,11 +29,13 @@ class CardServiceImplTest {
     private ICardService cardService;
     private Product product;
     private Card cardSpy;
+    private int id;
 
     @BeforeEach
     void setUp() {
+        id = 100000;
         product = new Product();
-        product.setProductId(100000);
+        product.setProductId(id);
         product.setName("Product Name");
         product.setCustomer("Gustavo Castro");
 
@@ -41,7 +43,8 @@ class CardServiceImplTest {
         cardSpy.setCardId(1);
         cardSpy.setProduct(product);
         cardSpy.setExpiryDate("06/2026");
-        when(cardRepositoryMock.findById(1)).thenReturn(Optional.of(cardSpy));
+        cardSpy.setActive(1);
+        when(cardRepositoryMock.findByCardIdActive(1)).thenReturn(Optional.of(cardSpy));
     }
 
     @AfterEach
@@ -55,18 +58,22 @@ class CardServiceImplTest {
 
     @Test
     void testGenerateCard() {
-        when(productRepositoryMock.findById(100000)).thenReturn(Optional.of(product));
-        cardService.generateCard(100000);
+        when(productRepositoryMock.findById(id)).thenReturn(Optional.of(product));
+        cardService.generateCard(id);
         verify(cardRepositoryMock).save(any());
     }
 
     @Test
     void testGenerateNumber() {
-        assertThat(cardService.generateNumber(100000), startsWith("100000"));
+        assertThat(cardService.generateNumber(id), startsWith("100000"));
     }
 
     @Test
     void testActivateCard() {
+        cardSpy = spy(new Card());
+        cardSpy.setCardId(1);
+        cardSpy.setActive(0);
+        when(cardRepositoryMock.findByCardIdInactive(1)).thenReturn(Optional.of(cardSpy));
         cardService.activateCard(cardSpy);
         verify(cardSpy).setActive(1);
     }

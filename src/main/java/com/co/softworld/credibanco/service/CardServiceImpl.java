@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static com.co.softworld.credibanco.util.IUtility.*;
 import static java.lang.Math.random;
@@ -30,10 +29,7 @@ public class CardServiceImpl implements ICardService {
 
     @Override
     public ResponseEntity<Card> generateCard(int productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if (optionalProduct.isEmpty())
-            throw new InvalidCardException(PRODUCT_NOT_FOUND);
-        Product product = optionalProduct.get();
+        Product product = productRepository.findById(productId).orElseThrow(() -> new InvalidCardException(PRODUCT_NOT_FOUND));
         Card card = new Card();
         card.setNumber(generateNumber(productId));
         card.setProduct(product);
@@ -49,47 +45,35 @@ public class CardServiceImpl implements ICardService {
 
     @Override
     public ResponseEntity<Card> activateCard(Card card) {
-        Optional<Card> optionalCard = cardRepository.findById(card.getCardId());
-        if (optionalCard.isEmpty())
-            throw new InvalidCardException(CARD_NOT_FOUND);
-        Card cardActivate = optionalCard.get();
-        if (cardActivate.getActive() == 1)
-            throw new InvalidCardException(CARD_IS_ACTIVE);
-        cardActivate.setActive(1);
-        return new ResponseEntity<>(cardRepository.save(cardActivate), OK);
+        Card cardDatabase = cardRepository.findByCardIdInactive(card.getCardId())
+                .orElseThrow(() -> new InvalidCardException(CARD_NOT_FOUND_OR_IS_ACTIVE));
+        cardDatabase.setActive(1);
+        return new ResponseEntity<>(cardRepository.save(cardDatabase), OK);
     }
 
     @Override
     public ResponseEntity<Card> block(int cardId) {
-        Optional<Card> optionalCard = cardRepository.findById(cardId);
-        if (optionalCard.isEmpty())
-            throw new InvalidCardException(CARD_NOT_FOUND);
-        Card cardBlock = optionalCard.get();
-        if (cardBlock.getActive() == 0)
-            throw new InvalidCardException(CARD_IS_INACTIVE);
-        cardBlock.setActive(0);
-        return new ResponseEntity<>(cardRepository.save(cardBlock), OK);
+        Card cardDatabase = cardRepository.findByCardIdActive(cardId)
+                .orElseThrow(() -> new InvalidCardException(CARD_NOT_FOUND_OR_IS_INACTIVE));
+        cardDatabase.setActive(0);
+        return new ResponseEntity<>(cardRepository.save(cardDatabase), OK);
     }
 
     @Override
     public ResponseEntity<Card> addBalance(Card card) {
-        Optional<Card> optionalCard = cardRepository.findById(card.getCardId());
-        if (optionalCard.isEmpty())
-            throw new InvalidCardException(CARD_NOT_FOUND);
         if (card.getBalance() <= 0)
             throw new InvalidCardException(CARD_INVALID_BALANCE);
-        Card cardBalance = optionalCard.get();
-        cardBalance.setBalance(cardBalance.getBalance() + card.getBalance());
-        return new ResponseEntity<>(cardRepository.save(cardBalance), OK);
+        Card cardDatabase = cardRepository.findByCardIdActive(card.getCardId()).orElseThrow(() -> new InvalidCardException(CARD_NOT_FOUND_OR_IS_INACTIVE));
+        cardDatabase.setBalance(cardDatabase.getBalance() + card.getBalance());
+        return new ResponseEntity<>(cardRepository.save(cardDatabase), OK);
     }
 
     @Override
     public ResponseEntity<Map<String, Double>> getBalance(int cardId) {
-        Optional<Card> optionalCard = cardRepository.findById(cardId);
-        if (optionalCard.isEmpty())
-            throw new InvalidCardException(CARD_NOT_FOUND);
+        Card cardDatabase = cardRepository.findByCardIdActive(cardId)
+                .orElseThrow(() -> new InvalidCardException(CARD_NOT_FOUND_OR_IS_INACTIVE));
         Map<String, Double> balance = new HashMap<>();
-        balance.put("balance", optionalCard.get().getBalance());
+        balance.put("balance", cardDatabase.getBalance());
         return new ResponseEntity<>(balance, OK);
     }
 
