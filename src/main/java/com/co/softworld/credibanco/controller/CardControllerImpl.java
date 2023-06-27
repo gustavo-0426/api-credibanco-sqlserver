@@ -46,7 +46,7 @@ public class CardControllerImpl implements ICardController {
     @Override
     @PostMapping("/balance")
     @ApiOperation(value = "Recarga el saldo de la tarjeta. Recibe en el cuerpo del mensaje el id de la tarjeta, valida " +
-            "que la tarjeta exista y procesa la recarga de saldo.")
+            "que la tarjeta exista, que no exté bloqueada y procesa la recarga de saldo.")
     public ResponseEntity<Card> addBalance(@RequestBody Card card) {
         return cardService.addBalance(card);
     }
