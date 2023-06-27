@@ -1,12 +1,12 @@
 package com.co.softworld.credibanco.exception;
 
 import com.co.softworld.credibanco.model.Error;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.SQLException;
 
 public interface IExceptionController {
 
@@ -15,5 +15,5 @@ public interface IExceptionController {
         ResponseEntity<Error> transactionException(InvalidTransactionException transactionException, HttpServletRequest request);
         ResponseEntity<Error> productException(InvalidProductException productException, HttpServletRequest request);
         ResponseEntity<Error> cardException(InvalidCardException cardException, HttpServletRequest request);
-        ResponseEntity<Error> sqlException(SQLServerException sqlException, HttpServletRequest request);
+        ResponseEntity<Error> sqlException(SQLException sqlException, HttpServletRequest request);
 }
