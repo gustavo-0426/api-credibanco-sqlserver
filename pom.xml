@@ -8,9 +8,9 @@
 		<version>2.6.7</version>
 	</parent>
 	<groupId>com.co.softworld.credibanco</groupId>
-	<artifactId>api-credibanco</artifactId>
+	<artifactId>api-credibanco-sqlserver</artifactId>
 	<version>1.0.0</version>
-	<name>api-credibanco</name>
+	<name>api-credibanco-sqlserver</name>
 	<description>This is an api for credibanco</description>
 
 	<properties>

@@ -1,8 +1,4 @@
 spring:
-  profiles:
-    active: "dev"
----
-spring:
   datasource:
     url: jdbc:sqlserver://${DB_HOST}:${DB_PORT};databaseName=${DB_DATABASE}
     username: ${DB_USERNAME}
