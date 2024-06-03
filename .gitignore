@@ -6,6 +6,7 @@ HELP.md
 api-credibanco.postman_collection.json
 CredibanCo.pdf
 Diagrama Entidad Relación.pdf
+*.env
 
 ### STS ###
 .apt_generated

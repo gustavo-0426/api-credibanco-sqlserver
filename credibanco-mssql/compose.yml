@@ -1,17 +1,16 @@
-version: "3.9"
-
 services:
   credibanco:
     build:
       context: ../
       dockerfile: credibanco-mssql/Dockerfile
     container_name: credibanco
+    restart: always
     environment:
-      DB_HOST: "mssql"
-      DB_PORT: "1433"
-      DB_DATABASE: "HelloWorld"
-      DB_USERNAME: "sa"
-      DB_PASSWORD: "MSSQLServer2311*"
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "9091:9091"
     depends_on:
@@ -22,12 +21,13 @@ services:
       context: docker_mssql
       dockerfile: Dockerfile
     container_name: mssql
+    restart: always
     volumes:
       - mssql-db:/var/opt/mssql
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "MSSQLServer2311*"
+      MSSQL_SA_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "1433:1433"
+      - "1010:1433"
 volumes:
   mssql-db:
