@@ -3,7 +3,6 @@ services:
     build:
       context: ../
       dockerfile: credibanco-mssql/Dockerfile
-    image: gustavo0426/api-microservice-credibanco:1.0.0
     container_name: credibanco
     restart: always
     environment:
@@ -21,7 +20,6 @@ services:
     build:
       context: docker_mssql
       dockerfile: Dockerfile
-    image: gustavo0426/mssql-db:1.0.0
     container_name: mssql
     restart: always
     volumes:
@@ -30,6 +28,6 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "1433:1433"
+      - "1010:1433"
 volumes:
   mssql-db:
