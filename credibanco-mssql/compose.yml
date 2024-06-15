@@ -11,8 +11,9 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
+      SERVER_PORT: ${SERVER_PORT}
     ports:
-      - "9091:9091"
+      - 9091:${SERVER_PORT}
     depends_on:
       - mssql
 
@@ -28,6 +29,6 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "1010:1433"
+      - 1010:${DB_PORT}
 volumes:
   mssql-db:
