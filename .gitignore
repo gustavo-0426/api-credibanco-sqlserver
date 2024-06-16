@@ -2,12 +2,6 @@ HELP.md
 !**/src/main/**
 !**/src/test/**
 
-### Archivos ocultos
-api-credibanco.postman_collection.json
-CredibanCo.pdf
-Diagrama Entidad Relación.pdf
-*.env
-
 ### STS ###
 .apt_generated
 .classpath
