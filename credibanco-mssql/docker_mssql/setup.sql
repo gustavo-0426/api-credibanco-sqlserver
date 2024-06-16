@@ -1,8 +1,5 @@
-/*
-
-Enter custom T-SQL here that would run after SQL Server has started up. 
-
-*/
-
-CREATE DATABASE Credibanco;
+IF NOT EXISTS(SELECT * FROM sys.databases WHERE name = 'Credibanco')
+BEGIN
+    CREATE DATABASE Credibanco;
+END
 GO
