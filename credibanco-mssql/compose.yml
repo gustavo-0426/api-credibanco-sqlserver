@@ -5,6 +5,8 @@ services:
       dockerfile: credibanco-mssql/Dockerfile
     container_name: credibanco
     restart: always
+    networks:
+      - dev
     environment:
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
@@ -22,6 +24,8 @@ services:
       dockerfile: Dockerfile
     container_name: mssql
     restart: always
+    networks:
+      - dev
     volumes:
       - mssql-db:/var/opt/mssql
     environment:
@@ -29,5 +33,7 @@ services:
       MSSQL_SA_PASSWORD: ${DB_PASSWORD}
     ports:
       - "1433:1433"
+networks:
+  dev:
 volumes:
   mssql-db:

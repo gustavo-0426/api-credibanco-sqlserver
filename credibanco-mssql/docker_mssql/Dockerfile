@@ -15,4 +15,5 @@ RUN chmod +x /usr/config/configure-db.sh
 
 USER mssql
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT /bin/bash /usr/config/entrypoint.sh
+ENTRYPOINT ["/usr/config/entrypoint.sh"]
