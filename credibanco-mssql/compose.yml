@@ -20,7 +20,7 @@ services:
 
   mssql:
     build:
-      context: docker_mssql
+      context: docker-mssql
       dockerfile: Dockerfile
     container_name: mssql
     restart: always
