@@ -1,5 +1,6 @@
-package com.co.softworld.credibanco.controller;
+package com.co.softworld.credibanco.controller.impl;
 
+import com.co.softworld.credibanco.controller.ITransactionController;
 import com.co.softworld.credibanco.model.TransactionMapper;
 import com.co.softworld.credibanco.model.TransactionManager;
 import com.co.softworld.credibanco.service.ITransactionService;

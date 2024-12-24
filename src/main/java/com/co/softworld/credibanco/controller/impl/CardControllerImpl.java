@@ -1,5 +1,6 @@
-package com.co.softworld.credibanco.controller;
+package com.co.softworld.credibanco.controller.impl;
 
+import com.co.softworld.credibanco.controller.ICardController;
 import com.co.softworld.credibanco.model.Card;
 import com.co.softworld.credibanco.service.ICardService;
 import io.swagger.annotations.Api;
@@ -20,7 +21,7 @@ public class CardControllerImpl implements ICardController {
     private ICardService cardService;
 
     @Override
-    @GetMapping("/{productId}/number")
+    @PostMapping("/{productId}/number")
     @ApiOperation(value = "Genera la tarjeta. Recibe por parámetro el id del producto, valida que el producto exista y " +
             "genera la tarjeta con una fecha de expiración de 3 años.")
     public ResponseEntity<Card> generateCard(@PathVariable int productId) {

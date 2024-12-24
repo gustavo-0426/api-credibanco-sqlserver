@@ -1,8 +1,9 @@
-package com.co.softworld.credibanco.service;
+package com.co.softworld.credibanco.service.impl;
 
 import com.co.softworld.credibanco.exception.InvalidProductException;
 import com.co.softworld.credibanco.model.Product;
 import com.co.softworld.credibanco.repository.IProductRepository;
+import com.co.softworld.credibanco.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
