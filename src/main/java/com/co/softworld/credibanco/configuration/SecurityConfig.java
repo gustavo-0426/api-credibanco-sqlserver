@@ -24,22 +24,16 @@ public class SecurityConfig {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers(HttpMethod.POST, "/card/{productId}/number").hasRole("admin")
-                        .antMatchers(HttpMethod.POST, "/card/enroll").hasRole("admin")
-                        .antMatchers(HttpMethod.DELETE, "/card/{cardId}").hasRole("admin")
-                        .antMatchers(HttpMethod.POST, "/card/balance").hasRole("admin")
-                        .antMatchers(HttpMethod.GET, "/card/balance/{cardId}").hasAnyRole("admin", "test")
-                        .antMatchers(HttpMethod.GET, "/card").hasAnyRole("admin", "test")
+                        .antMatchers(HttpMethod.POST, "/card/**").hasRole("admin")
+                        .antMatchers(HttpMethod.DELETE, "/card/**").hasRole("admin")
+                        .antMatchers(HttpMethod.GET, "/card/**").hasAnyRole("admin", "test")
 
-                        .antMatchers(HttpMethod.POST, "/product").hasRole("admin")
-                        .antMatchers(HttpMethod.GET, "/product/{productId}").hasAnyRole("admin", "test")
-                        .antMatchers(HttpMethod.GET, "/product").hasAnyRole("admin", "test")
-                        .antMatchers(HttpMethod.DELETE, "/product/{productId}").hasRole("admin")
+                        .antMatchers(HttpMethod.POST, "/product/**").hasRole("admin")
+                        .antMatchers(HttpMethod.DELETE, "/product/**").hasRole("admin")
+                        .antMatchers(HttpMethod.GET, "/product/**").hasAnyRole("admin", "test")
 
-                        .antMatchers(HttpMethod.POST, "/transaction/purchase").hasRole("admin")
-                        .antMatchers(HttpMethod.GET, "/transaction/{transactionId}").hasAnyRole("admin", "test")
-                        .antMatchers(HttpMethod.POST, "/transaction/anulation").hasRole("admin")
-                        .antMatchers(HttpMethod.GET, "/transaction").hasAnyRole("admin", "test")
+                        .antMatchers(HttpMethod.POST, "/transaction/**").hasRole("admin")
+                        .antMatchers(HttpMethod.GET, "/transaction/**").hasAnyRole("admin", "test")
 
                         .anyRequest().permitAll()
                 )
