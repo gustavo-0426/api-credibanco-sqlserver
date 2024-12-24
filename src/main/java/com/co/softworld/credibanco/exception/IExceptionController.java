@@ -16,4 +16,5 @@ public interface IExceptionController {
         ResponseEntity<Error> productException(InvalidProductException productException, HttpServletRequest request);
         ResponseEntity<Error> cardException(InvalidCardException cardException, HttpServletRequest request);
         ResponseEntity<Error> sqlException(SQLException sqlException, HttpServletRequest request);
+        ResponseEntity<Error> customerException(InvalidCustomerException invalidCustomerException, HttpServletRequest request);
 }

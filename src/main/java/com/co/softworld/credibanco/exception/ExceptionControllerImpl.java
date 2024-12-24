@@ -2,6 +2,7 @@ package com.co.softworld.credibanco.exception;
 
 import com.co.softworld.credibanco.model.Error;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,7 @@ import static com.co.softworld.credibanco.util.IUtility.EMPTY;
 import static com.co.softworld.credibanco.util.IUtility.FORMAT_DATETIME;
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class ExceptionControllerImpl implements IExceptionController {
@@ -81,6 +83,16 @@ public class ExceptionControllerImpl implements IExceptionController {
         error.setPatch(request.getServletPath());
         error.setMessage(sqlException.getMessage());
         return new ResponseEntity<>(error, BAD_REQUEST);
+    }
+
+    @Override
+    @ExceptionHandler(InvalidCustomerException.class)
+    public ResponseEntity<Error> customerException(InvalidCustomerException invalidCustomerException, HttpServletRequest request) {
+        error.setDate(now().format(FORMAT_DATETIME));
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setPatch(request.getServletPath());
+        error.setMessage(invalidCustomerException.getMessage());
+        return new ResponseEntity<>(error, NOT_FOUND);
     }
 
 }
