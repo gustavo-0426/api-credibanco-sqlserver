@@ -1,5 +1,6 @@
-package com.co.softworld.credibanco.controller;
+package com.co.softworld.credibanco.controller.impl;
 
+import com.co.softworld.credibanco.controller.IProductController;
 import com.co.softworld.credibanco.model.Product;
 import com.co.softworld.credibanco.service.IProductService;
 import io.swagger.annotations.Api;

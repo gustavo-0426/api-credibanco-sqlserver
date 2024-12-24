@@ -1,4 +1,4 @@
-package com.co.softworld.credibanco.service;
+package com.co.softworld.credibanco.service.impl;
 
 import com.co.softworld.credibanco.exception.InvalidCardException;
 import com.co.softworld.credibanco.exception.InvalidTransactionException;
@@ -7,6 +7,7 @@ import com.co.softworld.credibanco.model.TransactionMapper;
 import com.co.softworld.credibanco.model.TransactionManager;
 import com.co.softworld.credibanco.repository.ICardRepository;
 import com.co.softworld.credibanco.repository.ITransactionRepository;
+import com.co.softworld.credibanco.service.ITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

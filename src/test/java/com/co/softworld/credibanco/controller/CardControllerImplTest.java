@@ -61,7 +61,7 @@ class CardControllerImplTest {
     @Test
     void testGenerateCard() throws Exception {
         when(cardServiceMock.generateCard(100000)).thenReturn(cardResponseEntity);
-        cardController.perform(get("/card/100000/number")
+        cardController.perform(post("/card/100000/number")
                         .contentType(APPLICATION_JSON))
                 .andExpect(content().json(jsonCard))
                 .andExpect(status().isOk());
