@@ -13,8 +13,9 @@ services:
       DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
+      SERVER_PORT: ${PORT}
     ports:
-      - "9091:9091"
+      - "9091:${PORT}"
     depends_on:
       - mssql
 
